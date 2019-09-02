@@ -9,7 +9,7 @@ describe("Basic rendering", () => {
   it('renders games from 3 major teams', () => {
     cy.get("main").contains("Benfica");
     cy.get("main").contains("Porto");
-    cy.get("main").contains("Braga");
+    cy.get("main").contains("Sporting");
   })
 
   it('renders cart', () => {
