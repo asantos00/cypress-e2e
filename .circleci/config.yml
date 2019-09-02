@@ -2,9 +2,18 @@ version: 2.1
 orbs:
   cypress: cypress-io/cypress@1
 workflows:
-  build:
+  e2e:
     jobs:
       - cypress/run:
           start: npm start
           wait-on: 'http://localhost:3000'
-          store_artifacts: true
+          command: npm run cy:run
+          executor: cypress/browsers-chrome69
+          browser: chrome
+          post-steps:
+            - store_artifacts:
+                path: cypress/videos
+            - store_artifacts:
+                path: cypress/screenshots
+            - store_test_results:
+                path: cypress/results
