@@ -37,7 +37,7 @@ workflows:
       - cypress/run:
           # name this job because we are running "cypress/run" several times
           # with different parameters
-          name: '3 machines'
+          name: 'electron'
           # job will use workspace with code and dependencies
           # installed by the "install" job
           requires:
@@ -64,3 +64,5 @@ workflows:
             branches:
               only:
                 - master
+          requires:
+            - electron
