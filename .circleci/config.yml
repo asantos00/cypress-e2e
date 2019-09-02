@@ -1,74 +1,11 @@
-# testing using CircleCI orb
-# see https://on.cypress.io/circleci-orb
-
-# for non-orb configuration see old commit
-# https://github.com/cypress-io/cypress-example-kitchensink/blob/aabb10cc1bb9dee88e1bf28e0af5e9661427ee7a/circle.yml
-
-# to use CircleCI orbs need to use version >= 2.1
 version: 2.1
 orbs:
-  # use Cypress orb from CircleCI registry
-  cypress: cypress-io/cypress@1.8.0
-
-executors:
-  mac:
-    macos:
-      xcode: "10.1.0"
-
-jobs:
-  release:
-    executor: cypress/base-10
-    steps:
-      - attach_workspace:
-          at: ~/
-      - run: npm run semantic-release
-
+  # "cypress-io/cypress@1" installs the latest published
+  # version "1.x.y" of the orb. We recommend you then use
+  # the strict explicit version "cypress-io/cypress@1.x.y"
+  # to lock the version and prevent unexpected CI changes
+  cypress: cypress-io/cypress@1
 workflows:
-  linux-build:
+  build:
     jobs:
-      # checks out code and installs dependencies once
-      - cypress/install:
-          name: 'Linux install'
-          # and builds the app using this command
-          build: 'npm run build'
-
-      # runs on 3 machines, load balances tests
-      # and records on Cypress Dashboard
-      - cypress/run:
-          # name this job because we are running "cypress/run" several times
-          # with different parameters
-          name: 'electron'
-          # job will use workspace with code and dependencies
-          # installed by the "install" job
-          requires:
-            - Linux install
-          group: 'Electron on CircleCI' # name this group
-          steps:
-            - run: 'npm run cy:run'
-            - store_artifacts:
-                path: /root/project/cypress/videos/
-
-      # run on 2 machines using Chrome browser
-      - cypress/run:
-          name: '2 machines using Chrome'
-          # job will use workspace with code and dependencies
-          # installed by the "install" job
-          requires:
-            - Linux install
-          # use executor with Chrome installed
-          executor: cypress/browsers-chrome69
-          # use browser "chrome" for running tests
-          browser: chrome
-          group: 'Chrome on CircleCI'
-          steps:
-            - run: 'npm run cy:run'
-            - store_artifacts:
-                path: /root/project/cypress/videos/
-
-      - release:
-          filters:
-            branches:
-              only:
-                - master
-          requires:
-            - electron
+      - cypress/run # "run" job comes from "cypress" orb
