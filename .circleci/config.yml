@@ -43,7 +43,10 @@ workflows:
           requires:
             - Linux install
           group: 'Electron on CircleCI' # name this group
-          start: 'npm run start' # start server before running tests
+          steps:
+            - run: 'npm run cy:run'
+            - store_artifacts:
+                path: /root/project/cypress/videos/
 
       # run on 2 machines using Chrome browser
       - cypress/run:
@@ -57,7 +60,10 @@ workflows:
           # use browser "chrome" for running tests
           browser: chrome
           group: 'Chrome on CircleCI'
-          start: 'npm run cy:run'
+          steps:
+            - run: 'npm run cy:run'
+            - store_artifacts:
+                path: /root/project/cypress/videos/
 
       - release:
           filters:
