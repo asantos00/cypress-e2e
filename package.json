@@ -13,7 +13,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "cy:run": "cypress run --reporter junit --reporter-options \"mochaFile=results/cy-test-output.xml\""
+    "cy:run": "cypress run --reporter junit --reporter-options \"mochaFile=cypress/results/cy-test-output.xml\""
   },
   "eslintConfig": {
     "extends": "react-app"
