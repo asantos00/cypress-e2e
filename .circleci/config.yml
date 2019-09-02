@@ -24,18 +24,6 @@ jobs:
       - run: npm run semantic-release
 
 workflows:
-  mac-build:
-    jobs:
-      # split into install + test jobs when Mac caching is correct
-      # https://github.com/cypress-io/circleci-orb/issues/98
-      - cypress/run:
-          name: Mac test
-          executor: mac
-          build: 'npm run build'
-          start: 'npm run start:ci'
-          record: true
-          group: 'Mac build'
-
   linux-build:
     jobs:
       # checks out code and installs dependencies once
@@ -54,11 +42,8 @@ workflows:
           # installed by the "install" job
           requires:
             - Linux install
-          record: true # record results on Cypress dashboard
-          parallel: true # load balance all tests
-          parallelism: 3 # across 3 machines
-          group: '3x-electron on CircleCI' # name this group
-          start: 'npm run start:ci' # start server before running tests
+          group: 'Electron on CircleCI' # name this group
+          start: 'npm run start' # start server before running tests
 
       # run on 2 machines using Chrome browser
       - cypress/run:
@@ -71,16 +56,11 @@ workflows:
           executor: cypress/browsers-chrome69
           # use browser "chrome" for running tests
           browser: chrome
-          record: true
-          parallel: true
-          parallelism: 2
-          group: '2x-chrome on CircleCI'
-          start: 'npm run start:ci'
+          group: 'Chrome on CircleCI'
+          start: 'npm run cy:run'
 
       - release:
           filters:
             branches:
               only:
                 - master
-          requires:
-            - 3 machines
