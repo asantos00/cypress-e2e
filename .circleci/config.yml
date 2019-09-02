@@ -16,4 +16,4 @@ workflows:
             - store_artifacts:
                 path: cypress/screenshots
             - store_test_results:
-                path: cypress/results
+                path: results
