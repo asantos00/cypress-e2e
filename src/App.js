@@ -85,7 +85,7 @@ function App() {
           ))}
         </ul>
         <hr />
-        <div data-testid="cart">
+        <div className={styles.cart} data-testid="cart">
           <h3>Cart</h3>
           <ul>
             {allCartKeys.map(cartKey => cart[cartKey] ? (

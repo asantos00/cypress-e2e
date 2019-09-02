@@ -12,6 +12,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:e2e": "cypress run",
     "eject": "react-scripts eject",
     "cy:run": "cypress run --reporter junit --reporter-options \"mochaFile=cypress/results/cy-test-output.xml\""
   },
@@ -31,6 +32,7 @@
     ]
   },
   "devDependencies": {
+    "cypress-plugin-snapshots": "^1.2.9",
     "eslint-plugin-cypress": "^2.6.1",
     "start-server-and-test": "^1.10.0"
   }

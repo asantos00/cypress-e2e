@@ -5,20 +5,20 @@ describe("Add to cart", () => {
 
   it("adds tickets to cart", () => {
     cy.contains("Sporting").within(li => {
-      cy.get(li.find("input")).type(10)
+      cy.wrap(li.find("input")).type(10)
     });
     cy.contains("Sporting").within(li => {
-      cy.get(li.find("button")).click()
+      cy.wrap(li.find("button")).click()
     });
 
     cy.contains("€100");
 
     cy.contains("Benfica").within(li => {
-      cy.get(li.find("input")).type(2)
+      cy.wrap(li.find("input")).type(2)
     });
 
     cy.contains("Benfica").within(li => {
-      cy.get(li.find("button")).click()
+      cy.wrap(li.find("button")).click()
     });
 
     cy.contains("€140");
@@ -35,7 +35,7 @@ describe("Add to cart", () => {
     });
 
     cy.contains("Benfica").within(li => {
-      cy.get(li.find("button"))
+      cy.wrap(li.find("button"))
         .click()
     })
 
@@ -46,13 +46,13 @@ describe("Add to cart", () => {
     cy.addToCart("Sporting", 10);
 
     cy.contains('div', 'Cart').within((cart) => {
-      cy.get(cart).contains('Sporting');
+      cy.wrap(cart).contains('Sporting');
     });
 
     cy.root().removeFromCart('Sporting');
 
     cy.contains('div', 'Cart').within((cart) => {
-      cy.get(cart).contains('Sporting').should('not.exist');
+      cy.wrap(cart).contains('Sporting').should('not.exist');
     });
   })
 
@@ -65,5 +65,16 @@ describe("Add to cart", () => {
     })
 
     cy.contains('BUY').click();
+  })
+
+  it('should read price', () => {
+    cy.addToCart('Sporting', 10);
+
+    cy.contains("€100");
+
+    cy.get('main').toMatchImageSnapshot({
+      "createDiffImage": true,
+      "threshold": 0.0001,
+    })
   })
 });
