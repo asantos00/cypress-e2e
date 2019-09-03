@@ -79,7 +79,7 @@ function App() {
                   });
                 }}
               >
-                {cart[game.id] !== game.nrOfTickets ? "Update cart" : "Add to cart"}
+                {game.nrOfTickets && cart[game.id] !== game.nrOfTickets ? "Update cart" : "Add to cart"}
               </button>
             </li>
           ))}
