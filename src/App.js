@@ -21,6 +21,7 @@ function App() {
         <ul>
           {allGames.map(game => (
             <GameRow
+              key={game.id}
               game={game}
               nrOfTickets={cart[game.id] || 0}
               onUpdateCart={nrOfTickets => {
