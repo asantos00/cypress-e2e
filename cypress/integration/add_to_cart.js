@@ -23,6 +23,20 @@ Wrappers:
 */
 
 
+describe('Cart | Add items', () => {
+    it('Buys tickets for sporitng',  () => {
+        cy.visit('/');
+
+        cy.contains('Sporting').within(el => {
+            cy.wrap(el)
+                .get('input').type(10)
+                .get('button').click();
+        })
+
+        cy.contains('€100');
+    })
+})
+
 
 
 
