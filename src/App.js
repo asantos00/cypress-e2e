@@ -36,7 +36,7 @@ function App() {
           games={gamesDb}
           buyTickets={buyTickets}
           onRemoveFromCart={gameId => {
-            // setCart({ ...cart, [gameId]: 0 })
+            setCart({ ...cart, [gameId]: 0 })
           }}
         />
       </main>
